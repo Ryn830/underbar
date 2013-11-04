@@ -158,7 +158,7 @@ var _ = { };
       }      
     } else {
       for (var i = 0; i < list.length; i++) {
-        
+        methodName.apply(list[i],args);
         arr.push(list[i]);
       }
     }
