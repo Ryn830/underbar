@@ -109,7 +109,7 @@ var _ = { };
     arr.push(array[0]);
 
     for (var i = 0; i < array.length; i++) {
-      if (arr.indexOf(array[i]) === parseInt('-1')) {arr.push(array[i])};
+      if (arr.indexOf(array[i]) === parseInt('-1')) arr.push(array[i]);
     }
     return arr;
 
@@ -121,6 +121,12 @@ var _ = { };
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var arr = [];
+
+    for (var i = 0; i < array.length; i++) {
+      arr.push(iterator(array[i]));
+    }
+    return arr;
   };
 
   /*
