@@ -75,7 +75,6 @@ var _ = { };
         if (array[i] === target) return i;
       }
     }
-
     return array.indexOf(target);
 
   };
@@ -84,12 +83,8 @@ var _ = { };
   _.filter = function(collection, iterator) {
     var arr = [];
 
-    if (Array.isArray(collection)) {
-      for (var i = 0; i < collection.length; i++) {
-        if (iterator(collection[i])) {
-          arr.push(collection[i]);
-        }
-      }
+    for (var i = 0; i < collection.length; i++) {
+      if (iterator(collection[i])) arr.push(collection[i]);
     }
     return arr;
 
@@ -99,10 +94,25 @@ var _ = { };
   _.reject = function(collection, iterator) {
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
+    var arr = [];
+
+    for (var i = 0; i < collection.length; i ++) {
+      if (!iterator(collection[i])) arr.push(collection[i]);
+    }
+    return arr;
+
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var arr = [];
+    arr.push(array[0]);
+
+    for (var i = 0; i < array.length; i++) {
+      if (arr.indexOf(array[i]) === parseInt('-1')) {arr.push(array[i])};
+    }
+    return arr;
+
   };
 
 
