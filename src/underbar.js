@@ -240,7 +240,7 @@ var _ = { };
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    for (var i = 0; i < arguments.length; i++) {
+    for (var i = 1; i < arguments.length; i++) {
       for (var key in arguments[i]) {
         obj[key] = arguments[i][key];
       }
@@ -251,7 +251,7 @@ var _ = { };
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-    for (var i = 0; i < arguments.length; i++) {
+    for (var i = 1; i < arguments.length; i++) {
       for (var key in arguments[i]) {
         if (!obj.hasOwnProperty(key)) {
           obj[key] = arguments[i][key];
@@ -299,6 +299,13 @@ var _ = { };
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var result = {};
+    return function(arg) {
+      if(result[arg] === undefined) {
+        result[arg] = func(arg);
+      }
+      return result[arg];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -308,6 +315,8 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    setTimeout(function() {func.apply(null,args);}, wait);
   };
 
 
@@ -318,6 +327,13 @@ var _ = { };
 
   // Shuffle an array.
   _.shuffle = function(array) {
+    var returnSet = [];
+    while(obj.length) {
+      var index = ~~(Math.Random() * (obj.length + 1));
+      returnSet.push(obj[index]);
+      delete obj[index];
+    }
+    return returnSet;
   };
 
 
